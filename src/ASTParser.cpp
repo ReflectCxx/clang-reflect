@@ -82,22 +82,6 @@ namespace clang_reflect
 				newArgs.push_back("-ferror-limit=0");
 				
 				std::unordered_set<std::string> includeDirs;
-
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/boost_1_80_0");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/llvm-17.0.5.src/include");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/llvm-17.0.5.src/tools/clang-17.0.5.src/include");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/llvm-17.0.5.src/tools/clang-17.0.5.src/tools/extra");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/llvm-17.0.5.src/build/include");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/llvm-17.0.5.src/build/tools/clang-17.0.5.src/include");
-				//includeDirs.insert("E:/Jenkins/cxxparser_dependencies/openssl-1.1.1k/include");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/utils-master");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/cereal-1.2.1/include");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/jsoncons-master/src");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/logger");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/log4cpp/include");
-				//includeDirs.insert("E:/corona-llvm-17/corona_pg/cxxparser/ThirdParty/zeromq-4.1.5/include");
-
 				IncludesManager::Instance().loadIncludeDirsForSource(pFilePath.str(), includeDirs);
 				for (auto& incDir : includeDirs) {
 					newArgs.push_back(std::string("-I" + incDir));
