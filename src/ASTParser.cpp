@@ -98,7 +98,7 @@ namespace clang_reflect
 		{
 			int argc = 2;
 			std::vector<char*> argv;
-			const auto& srcFilePath = /*"E:/git_repos/opencv-4.x/3rdparty/libjasper/jas_cm.c";//*/m_files.at(index).c_str();
+			const auto& srcFilePath = m_files.at(index).c_str();
 
 			Logger::outProgress("compiling: " + std::string(srcFilePath));
 
@@ -143,7 +143,6 @@ namespace clang_reflect
 			auto unreflectedFuncs = actionFactory->getUnreflectedFunctions();
 			auto missingHeaderErrors = diagConsumer.getMissingHeaderMsgs();
 			Logger::outReflectError(getRelativePath(srcFilePath), unreflectedFuncs, missingHeaderErrors);
-			//break;
 		}
 		return 0;
 	}
