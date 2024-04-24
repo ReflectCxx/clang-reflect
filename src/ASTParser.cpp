@@ -48,17 +48,13 @@ namespace clang_reflect
 	const std::string ASTParser::getRelativePath(const std::string& pFileName)
 	{
 		static std::string baseDir;
-		auto transformer = [](unsigned char c)->char {
-			return (c == '\\') ? '/' : c;
-		};
-
 		if (baseDir.empty()) {
 			baseDir = CommandLineParser::getBaseDirectory();
-			std::transform(baseDir.begin(), baseDir.end(), baseDir.begin(), transformer);
+			std::replace(baseDir.begin(), baseDir.end(), '\\', '/');
 		}
 
 		auto fileName = pFileName;
-		std::transform(fileName.begin(), fileName.end(), fileName.begin(), transformer);
+		std::replace(fileName.begin(), fileName.end(), '\\', '/');
 		if (fileName.find(baseDir) == 0) {
 			fileName.erase(0, baseDir.length() + 1);
 		}
