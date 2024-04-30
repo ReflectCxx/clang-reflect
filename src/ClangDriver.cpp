@@ -70,8 +70,6 @@ namespace clang_reflect
         int restOffset = fileCount % numThreads;
         std::vector<std::thread> threadPool;
 
-        Logger::out("Running with number of threads: " + std::to_string(threadPool.size()));
-
         while (endIndex < fileCount - 1)
         {
             endIndex = startIndex + (indexOffset + (--restOffset >= 0 ? 1 : 0)) - 1;
@@ -87,6 +85,8 @@ namespace clang_reflect
             threadPool.push_back(std::move(thread));
             startIndex = endIndex + 1;
         }
+
+        Logger::out("Running with number of threads: " + std::to_string(threadPool.size()));
 
         for (auto& thread : threadPool) {
             thread.join();

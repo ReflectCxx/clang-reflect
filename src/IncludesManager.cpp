@@ -142,7 +142,7 @@ namespace clang_reflect {
 		extractIncludesFromCxxSources(pHeaderFiles, pSrcFiles, includes, m_srcHashIncludes);
 		initIncludesToDirecectoryMap(includes, pHeaderFiles);
 
-		Logger::out("Total header files found: " + std::to_string(includes.size()));
+		Logger::out("Total header files found: " + std::to_string(pHeaderFiles.size()));
 		Logger::out("Total #include(s) found in sources: " + std::to_string(includes.size()));
 		Logger::out("Total header files mapped with #include(s) : " + std::to_string(m_incPathDictionary.size()));
 

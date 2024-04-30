@@ -9,9 +9,12 @@ if(NOT LLVM_SRC)
     message(FATAL_ERROR "LLVM_SRC not provided. Please specify LLVM source directory.")
 endif()
 
-if(NOT LLVM_BUILD)
-    message(FATAL_ERROR "LLVM_BUILD not provided. Please specify LLVM build directory.")
-endif()
+
+if(WIN32)
+	if(NOT LLVM_BUILD)
+		message(FATAL_ERROR "LLVM_BUILD not provided. Please specify LLVM build directory.")
+	endif()
+endif(WIN32)
 
 # Set policy CMP0076 to NEW
 cmake_policy(SET CMP0076 NEW)
