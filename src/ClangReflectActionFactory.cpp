@@ -8,6 +8,7 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "ASTParser.h"
 #include "Logger.h"
+#include "clang/StaticAnalyzer/Frontend/AnalysisConsumer.h"
 
 namespace {
 
@@ -48,6 +49,12 @@ namespace {
 
 		std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& Compiler, llvm::StringRef InFile) override
 		{
+			/*insignificant LOC. 
+			  just to force linker to link with dependent libs.*/
+#if !defined(_WIN32) && !defined(_WIN64)
+			clang::ento::CreateAnalysisConsumer(Compiler);
+#endif		//--ends--!
+
 			Compiler.getDiagnosticOpts().ShowCarets = false;
 			return std::make_unique<FindRecordDeclsConsumer>(m_targetSrcFile, m_unreflectedFunctions);
 		}
