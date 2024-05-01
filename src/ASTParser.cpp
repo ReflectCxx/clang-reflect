@@ -64,7 +64,7 @@ namespace clang_reflect
 
 	ArgumentsAdjuster ASTParser::getArgumentsAdjuster()
 	{
-		return [=](const CommandLineArguments& pArgs, StringRef pFilePath) 
+		return [this](const CommandLineArguments& pArgs, StringRef pFilePath) 
 		{
 			CommandLineArguments newArgs = pArgs;
 			if (this->m_cdb == nullptr)

@@ -24,16 +24,15 @@ string(REPLACE "llvm" "clang" CLANG_DIR_STR ${LLVM_DIR_STR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 message(STATUS "Project name: ${PROJECT_NAME}")
-message(STATUS ${LLVM_DIR_STR})
-message(STATUS ${CLANG_DIR_STR})
-message(STATUS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+message(STATUS "Llvm dir: ${LLVM_DIR_STR}")
+message(STATUS "Clang dir: ${CLANG_DIR_STR}")
+message(STATUS "Output dir: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 if(WIN32)
 	# Linker library directories for the target
 	link_directories(
 		${LLVM_BUILD}/$(CONFIGURATION)/lib
-		${LLVM_BUILD}/$(CONFIGURATION)/lib/$(CONFIGURATION)
-	)
+		${LLVM_BUILD}/$(CONFIGURATION)/lib/$(CONFIGURATION))
 endif (WIN32)
 
 # Add executable target
@@ -124,71 +123,55 @@ endif (WIN32)
 if(UNIX)
 	find_package(LLVM REQUIRED CONFIG)
 	if (LLVM_FOUND)
+		add_definitions(${LLVM_DEFINITIONS})
+		llvm_map_components_to_libnames(LLVM_LIBS core analysis codegen libdriver support)		
 		set(CLANG_LIBS
-			libclangFrontend.a
-			libclangDriver.a
-			libclangRewrite.a
-			libclangParse.a
-			libclangSema.a
-			libclangEdit.a
-			libclangAnalysis.a
-			libclangTooling.a
-			libclangAST.a
-			libclangLex.a
-			libclangBasic.a
-			libclangSerialization.a
-			libclangStaticAnalyzerFrontend.a
-			libclangStaticAnalyzerCore.a
-			libclangStaticAnalyzerCheckers.a
-			libclangASTMatchers.a
-			libclangRewrite.a
-			libclangTidy.a
-			libclangTidyUtils.a
-			libclangToolingCore.a
-			libclangFormat.a
-			libclangTidyBoostModule.a
-			libclangTidyBugproneModule.a
-			libclangTidyCERTModule.a
-			libclangTidyCppCoreGuidelinesModule.a
-			libclangTidyFuchsiaModule.a
-			libclangTidyGoogleModule.a
-			libclangTidyHICPPModule.a
-			libclangTidyLLVMModule.a
-			libclangTidyMiscModule.a
-			libclangTidyModernizeModule.a
-			libclangTidyMPIModule.a
-			libclangTidyObjCModule.a
-			libclangTidyPerformanceModule.a
-			libclangTidyReadabilityModule.a
-			libLLVMFrontendOpenMP.a
-			libclangTidyConcurrencyModule.a
-			libclangCrossTU.a
-			libclangToolingInclusions.a
-			libclangDaemon.a
-			libclangIndex.a
-			libclangSupport.a
-			libclangTransformer.a
-			libclangAnalysisFlowSensitive.a
-			libclangAnalysisFlowSensitiveModels.a
-			libLLVMObject.a
-			libLLVMTextAPI.a
-			libLLVMDebugInfoDWARF.a
-			libLLVMWindowsDriver.a
-			libLLVMTargetParser.a
-			libLLVMIRReader.a
-			libLLVMAsmParser.a
-			libclangToolingInclusionsStdlib.a
-			libclangIncludeCleaner.a
-			libLLVMTransformUtils.a
-			libLLVMScalarOpts.a
-			libLLVMAnalysis.a
+			${LLVM_LIBRARY_DIRS}/libclangFrontend.a
+			${LLVM_LIBRARY_DIRS}/libclangDriver.a
+			${LLVM_LIBRARY_DIRS}/libclangRewrite.a
+			${LLVM_LIBRARY_DIRS}/libclangParse.a
+			${LLVM_LIBRARY_DIRS}/libclangSema.a
+			${LLVM_LIBRARY_DIRS}/libclangEdit.a
+			${LLVM_LIBRARY_DIRS}/libclangAnalysis.a
+			${LLVM_LIBRARY_DIRS}/libclangTooling.a
+			${LLVM_LIBRARY_DIRS}/libclangAST.a
+			${LLVM_LIBRARY_DIRS}/libclangLex.a
+			${LLVM_LIBRARY_DIRS}/libclangBasic.a
+			${LLVM_LIBRARY_DIRS}/libclangSerialization.a
+			${LLVM_LIBRARY_DIRS}/libclangStaticAnalyzerFrontend.a
+			${LLVM_LIBRARY_DIRS}/libclangStaticAnalyzerCore.a
+			${LLVM_LIBRARY_DIRS}/libclangStaticAnalyzerCheckers.a
+			${LLVM_LIBRARY_DIRS}/libclangASTMatchers.a
+			${LLVM_LIBRARY_DIRS}/libclangRewrite.a
+			${LLVM_LIBRARY_DIRS}/libclangTidy.a
+			${LLVM_LIBRARY_DIRS}/libclangTidyUtils.a
+			${LLVM_LIBRARY_DIRS}/libclangToolingCore.a
+			${LLVM_LIBRARY_DIRS}/libclangFormat.a
+			${LLVM_LIBRARY_DIRS}/libLLVMFrontendOpenMP.a
+			${LLVM_LIBRARY_DIRS}/libclangCrossTU.a
+			${LLVM_LIBRARY_DIRS}/libclangToolingInclusions.a
+			${LLVM_LIBRARY_DIRS}/libclangDaemon.a
+			${LLVM_LIBRARY_DIRS}/libclangIndex.a
+			${LLVM_LIBRARY_DIRS}/libclangSupport.a
+			${LLVM_LIBRARY_DIRS}/libclangTransformer.a
+			${LLVM_LIBRARY_DIRS}/libclangAnalysisFlowSensitive.a
+			${LLVM_LIBRARY_DIRS}/libclangAnalysisFlowSensitiveModels.a
+			${LLVM_LIBRARY_DIRS}/libLLVMObject.a
+			${LLVM_LIBRARY_DIRS}/libLLVMTextAPI.a
+			${LLVM_LIBRARY_DIRS}/libLLVMDebugInfoDWARF.a
+			${LLVM_LIBRARY_DIRS}/libLLVMWindowsDriver.a
+			${LLVM_LIBRARY_DIRS}/libLLVMTargetParser.a
+			${LLVM_LIBRARY_DIRS}/libLLVMIRReader.a
+			${LLVM_LIBRARY_DIRS}/libLLVMAsmParser.a
+			${LLVM_LIBRARY_DIRS}/libclangToolingInclusionsStdlib.a
+			${LLVM_LIBRARY_DIRS}/libclangIncludeCleaner.a
+			${LLVM_LIBRARY_DIRS}/libLLVMTransformUtils.a
+			${LLVM_LIBRARY_DIRS}/libLLVMScalarOpts.a
+			${LLVM_LIBRARY_DIRS}/libLLVMAnalysis.a
 			# List all other libraries as before...
 		)
 		
-		llvm_map_components_to_libnames(LLVM_LIBS core analysis codegen libdriver support)
-
-		add_definitions(${LLVM_DEFINITIONS})
-		include_directories(${LLVM_INCLUDE_DIRS})
+		include_directories(${LLVM_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/inc)
 		target_link_libraries(${CXX_EXE_NAME} ${LLVM_LIBS})
 		target_link_libraries(${CXX_EXE_NAME} ${CLANG_LIBS})
 
